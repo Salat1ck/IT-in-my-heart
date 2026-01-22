@@ -59,3 +59,110 @@ NodeJS - платформа позволяющая языку JS работать вне браузера
 
 
 4. Создание маршрутов (roates) и API поинтов
+
+
+
+---------------------------------------
+
+case №1
+
+HTML
+-----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <td>
+                    ID
+                </td>
+                <td>
+                    name
+                </td>
+                <td>
+                    age
+                </td>
+            </tr>
+        </thead>
+        <tbody id = 'tbody'>
+            
+        </tbody>
+    </table>
+    <script src="./script.js"></script>
+</body>
+</html>
+
+---
+JS
+----
+const dataset = [
+    { id: 1, name: 'Ivanov', age: 30 },
+    { id: 2, name: 'Petrov', age: 24 },
+    { id: 3, name: 'Sidorov', age: 10 }
+]
+
+const table = (data) => {
+const tbody = document.getElementById('tbody')
+data.forEach(el => {
+tbody.innerHTML +=` <tr>
+<td> ${el.id} </td> 
+<td> ${el.name} </td> 
+<td> ${el.age} </td></tr>`    
+})};
+table(dataset)
+
+Данное решение не является оптимальным, потому что количество атрибутов получается фиксированно. В коде есть уязвимость. передача данных через InnerHTML создает xss уязвимость (другие люди могут ввести нужный запрос и получить нужные данные)
+Поэтому необходимо рассмотреть другие варианты реализации
+
+
+
+CASE №2 (Исключение xss уязвимость) 
+
+
+const dataset = [
+    { id: 1, name: 'Ivanov', age: 30 },
+    { id: 2, name: 'Petrov', age: 24 },
+    { id: 3, name: 'Sidorov', age: 10 }
+]
+
+const table = (data) => {
+const tbody = document.getElementById('tbody')
+data.forEach(element => { 
+const tr = tbody.insertRow()
+const cellId = tr.insertCell()
+cellId.textContent = element.id
+const cellName = tr.insertCell()
+cellName.textContent = element.name
+const cellAge = tr.insertCell()
+cellAge.textContent = element.age
+})
+}
+table(dataset)
+
+
+
+
+
+
+CASE №3
+
+const table = (data) => {
+const tbody = document.getElementById('tbody')
+data.forEach(element => { 
+const tr = tbody.insertRow()
+})
+el.forEach(item => {
+    const td = tr.insertCell()
+    td.textContent = element(item)
+})
+}
+
+
