@@ -166,3 +166,64 @@ el.forEach(item => {
 }
 
 
+
+Написать функцию которая позволит фильтровать данные
+
+
+создаем общую папку
+делаем папки server и client
+открываем папку в виде терминала (правая кнопка по папке)
+пишем npm init -y
+ 
+
+npm install express, dotenv pg(является драйвером для подключения к бд через postgresql) sequelize, cros (необходим для внешних подключений) -D nodemon
+
+http://localhost/3000/...
+
+
+сommon js
+const express = require('express')
+
+ESM
+import express from express
+
+import {Start} from (.../server/start.js)
+---------------------------------------------
+ESM
+export default Express
+export {Start}
+export const Start =>()=>{}
+
+common js
+
+"type": "module",
+"dev": "nodemon index.js"
+
+PACKAGE.JSON
+------------
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "cros": "^1.1.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "nodemon": "^3.1.11",
+    "pg": "^8.17.2",
+    "sequelize": "^6.37.7"
+  }
+}
+
+---------------------------------------------
+
+
+npm run dev
